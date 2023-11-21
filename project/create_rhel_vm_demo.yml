@@ -18,6 +18,7 @@
     rhel_nic_name: "rhel_demo_nic"
     rhel_admin_user: "rheluser"
     rhel_admin_password: "RedHatAnsible123!"
+    rhel_admin_ssh_key: ""
     survey_public_ip: "True"
   tasks:
     - name: Create resource group
@@ -110,7 +111,10 @@
         admin_username: "{{ rhel_admin_user }}"
         admin_password: "{{ rhel_admin_password }}"
         network_interfaces: "{{ rhel_nic_name }}"
-        ssh_password_enabled: true
+        ssh_password_enabled: false
+        ssh_public_keys: 
+          - path: "/home/{{ rhel_admin_user }}/.ssh/authorized_keys"
+            key_data: "{{ rhel_admin_ssh_key }}"
         tags:
           "name": "{{ rhel_vm_name }}"
           "demo": "true"
